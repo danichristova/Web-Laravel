@@ -46,8 +46,8 @@
                         @foreach($tasks as $task)
                             <li class="list-group-item">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    {{-- Tombol selesai --}}
-                                    <form action="{{ route('tasks.update', $task->id) }}" method="POST" class="d-inline">
+
+                                    <form action="{{ route('tasks.update', $task->id) }}" method="POST">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit"
@@ -68,15 +68,26 @@
                                         </small>
                                     </div>
 
+                                    {{-- Tombol selesai --}}
+                                    <form action="{{ route('tasks.update', $task->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit"
+                                            class="btn btn-sm {{ $task->is_done ? 'btn-success' : 'btn-outline-success' }}">
+                                            Selesai
+                                        </button>
+                                    </form>
+
                                     {{-- Tombol Edit --}}
-                                    <form action="{{ route('tasks.updateDetail', $task->id) }}" method="POST">
+                                    <form action="{{ route('tasks.updateDetail', $task->id) }}" method="POST" class="d-inline ms-2">
                                         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                     </form>
 
+                                    {{-- Tombol Selesai --}}
                                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline ms-2">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">X</button>
+                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                     </form>
 
                                 </div>

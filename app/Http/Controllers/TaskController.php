@@ -63,25 +63,17 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'is_done' => 'nullable|boolean',
         ]);
 
         $task->title = $request->title;
         $task->description = $request->description;
-        $task->is_done = $request->has('is_done');
-
-        if ($task->is_done && !$task->completed_at) {
-            $task->completed_at = now();
-        } elseif (!$task->is_done) {
-            $task->completed_at = null;
-        }
 
         $task->save();
 
-        return redirect()->route('tasks.index');
-
-
+        return redirect()->route('tasks.index')->with('success', 'Tugas berhasil diperbarui!');
     }
+
+
 
 
 
